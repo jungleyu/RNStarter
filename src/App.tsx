@@ -4,7 +4,7 @@
  *
  * @format
  */
-import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
+import { StyleSheet, } from 'react-native';
 import {
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
@@ -12,13 +12,11 @@ import { RoutesContainer, TabsNavigator } from './Navigation';
 import { ReactNode, useCallback } from 'react';
 import DrawerLayout from './DrawerLayout';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ThemeProvider, useTheme } from './ThemeContext';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <AppContent />
     </SafeAreaProvider>
   );
@@ -29,14 +27,20 @@ function AppContent() {
     return <DrawerLayout>
       {children}
     </DrawerLayout>
-  }, [])
+  }, []);
+
+  const { colorScheme, } = useTheme();
 
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <RoutesContainer>
-        <TabsNavigator layout={drawerLayout} />
-      </RoutesContainer>
-    </GestureHandlerRootView>
+    <>
+      <ThemeProvider theme={colorScheme}>
+        <GestureHandlerRootView style={styles.container}>
+          <RoutesContainer>
+            <TabsNavigator layout={drawerLayout} />
+          </RoutesContainer>
+        </GestureHandlerRootView>
+      </ThemeProvider>
+    </>
   );
 }
 
