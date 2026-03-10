@@ -3,9 +3,11 @@ import { useCallback, useRef } from "react";
 import { Pressable, View, Text, StyleSheet } from "react-native"
 import Divider from "./Divider";
 import { ThemeColors, useTheme } from "../ThemeContext";
+import { useLingui } from "@lingui/react/macro";
 
 export default function CreateTab() {
     const sheet = useRef<TrueSheet>(null);
+    const { t } = useLingui();
 
     const open = useCallback(async () => {
         await sheet.current?.present();
@@ -20,18 +22,18 @@ export default function CreateTab() {
     function renderCreateItems() {
         return <View style={[styles.items]}>
             <Pressable onPress={onPress} style={styles.item}>
-                <Text style={styles.itemText}>Choose from album</Text>
+                <Text style={styles.itemText}>{t`Choose from album`}</Text>
             </Pressable>
             <Pressable onPress={onPress} style={styles.item}>
-                <Text style={styles.itemText}>Camera</Text>
-                <Text style={styles.itemSubText}>Capture & Go Live</Text>
+                <Text style={styles.itemText}>{t`Camera`}</Text>
+                <Text style={styles.itemSubText}>{t`Capture & Go Live`}</Text>
             </Pressable>
             <Pressable onPress={onPress} style={styles.item}>
-                <Text style={styles.itemText}>Text</Text>
+                <Text style={styles.itemText}>{t`Text`}</Text>
             </Pressable>
             <Divider size={8} />
             <Pressable onPress={onPress} style={styles.item}>
-                <Text style={styles.itemText}>Cancel</Text>
+                <Text style={styles.itemText}>{t`Cancel`}</Text>
             </Pressable>
         </View>
     }

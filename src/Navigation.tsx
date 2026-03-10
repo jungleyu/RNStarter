@@ -11,6 +11,9 @@ import DrawerContent from "./DrawerContent";
 import { useWindowDimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Breadcrumb from "./components/Breadcrumb";
+import { useLingui } from "@lingui/react/macro";
+import { I18n } from "@lingui/core";
+import Test from "./screens/Test";
 
 export type CommonStackParamList = {
     Settings: undefined
@@ -44,23 +47,34 @@ function screenOptions(screenWidth: number) {
     } as const;
 }
 
-function commonScreen(Stack: TypedNavigator<any>) {
+function commonScreen(Stack: TypedNavigator<any>, i18n: I18n) {
+    const stackOptions = {
+        headerShown: true,
+        animation: 'slide_from_right',
+    }
     return <>
         <Stack.Screen name="Settings" getComponent={() => Settings}
             options={{
-                headerShown: true,
-                animation: 'slide_from_right',
+                ...stackOptions,
+                title: i18n.t('Settings'),
+            }} />
+        <Stack.Screen name="Test" getComponent={() => Test}
+            options={{
+                ...stackOptions,
+                title: i18n.t('Test'),
             }} />
     </>
 }
 
 function AppStack() {
     const { width } = useWindowDimensions();
+    const { i18n } = useLingui();
+
     return (
         <RootStack.Navigator initialRouteName="Drawer" screenOptions={screenOptions(width)}>
             <RootStack.Screen name="Drawer" getComponent={() => DrawerNavigator} />
             {
-                commonScreen(RootStack)
+                commonScreen(RootStack, i18n)
             }
         </RootStack.Navigator>
     )
@@ -70,6 +84,7 @@ function TabsNavigator() {
     const createCreateTabButton = useCallback(() => {
         return <CreateTab />
     }, []);
+    const { t } = useLingui();
     return (
         <Tab.Navigator
             backBehavior="initialRoute"
@@ -89,7 +104,10 @@ function TabsNavigator() {
             }}>
             <Tab.Screen
                 name="Home"
-                getComponent={() => Home} />
+                getComponent={() => Home}
+                options={{
+                    title: t`Home`
+                }} />
             <Tab.Screen
                 name="CreateTab"
                 getComponent={() => () => null}
@@ -101,7 +119,7 @@ function TabsNavigator() {
                 name="Profile"
                 getComponent={() => Profile}
                 options={{
-                    title: 'Me',
+                    title: t`Me`,
                     headerLeft: Breadcrumb
                 }}
             />

@@ -7,7 +7,21 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
  * @type {import('@react-native/metro-config').MetroConfig}
  */
 const defaultConfig = getDefaultConfig(__dirname);
+const { sourceExts } = defaultConfig.resolver;
 
-const config = {};
+/**
+ * Metro configuration
+ * https://reactnative.dev/docs/metro
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {
+    transformer: {
+        babelTransformerPath: require.resolve('@lingui/metro-transformer/react-native')
+    },
+    resolver: {
+        sourceExts: [...sourceExts, 'po', 'pot']
+    }
+};
 
 module.exports = mergeConfig(defaultConfig, config);
