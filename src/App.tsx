@@ -8,9 +8,7 @@ import { StyleSheet, } from 'react-native';
 import {
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
-import { RoutesContainer, TabsNavigator } from './Navigation';
-import { ReactNode, useCallback } from 'react';
-import DrawerLayout from './DrawerLayout';
+import { NavContainer } from './Navigation';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider, useTheme } from './ThemeContext';
 
@@ -23,23 +21,15 @@ function App() {
 }
 
 function AppContent() {
-  const drawerLayout = useCallback(({ children }: { children: ReactNode }) => {
-    return <DrawerLayout>
-      {children}
-    </DrawerLayout>
-  }, []);
-
-  const { colorScheme, } = useTheme();
+  const { colorScheme, colors } = useTheme();
 
   return (
     <>
       <ThemeProvider theme={colorScheme}>
-        <GestureHandlerRootView style={styles.container}>
-          <RoutesContainer>
-            <TabsNavigator layout={drawerLayout} />
-          </RoutesContainer>
+        <GestureHandlerRootView style={[styles.container, { backgroundColor: colors.background }]}>
+          <NavContainer />
         </GestureHandlerRootView>
-      </ThemeProvider>
+      </ThemeProvider >
     </>
   );
 }

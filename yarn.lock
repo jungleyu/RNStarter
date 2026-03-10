@@ -1384,6 +1384,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@lodev09/react-native-true-sheet@^3.9.9":
+  version "3.9.9"
+  resolved "https://registry.yarnpkg.com/@lodev09/react-native-true-sheet/-/react-native-true-sheet-3.9.9.tgz#c5cdb514416f4056c9923fa77eeb7826ff895e08"
+  integrity sha512-JfatlPRnhDMSAyH1eBG5sK2SXOt+pLAsk/4eV+ZZa2js+6pTuyB3zjFOllTI9/c0bKVslSQoB5xhVzob1sKDXw==
+
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/eslint-scope-5-internals/-/eslint-scope-5-internals-5.1.1-v1.tgz#dbf733a965ca47b1973177dc0bb6c889edcfb129"
@@ -1768,6 +1773,16 @@
     use-latest-callback "^0.2.4"
     use-sync-external-store "^1.5.0"
 
+"@react-navigation/drawer@^7.9.4":
+  version "7.9.4"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-7.9.4.tgz#bb26943e0430a740e9904cc22c2d0d3ebc3908bc"
+  integrity sha512-Af2dQZiiHiw/FoP+houLdYn0WYQrkVXVZwOMT+RK8juY4Sn9KLRWg/ZsT1Z5Qml8W/poI06is32PXQXZNjk3YQ==
+  dependencies:
+    "@react-navigation/elements" "^2.9.10"
+    color "^4.2.3"
+    react-native-drawer-layout "^4.2.2"
+    use-latest-callback "^0.2.4"
+
 "@react-navigation/elements@^2.9.10":
   version "2.9.10"
   resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-2.9.10.tgz#8cde92a7b4d088a46efb931e6edb2644eddd630c"
@@ -1804,6 +1819,15 @@
   integrity sha512-1tJHg4KKRJuQ1/EvJxatrMef3NZXEPzwUIUZ3n1yJ2t7Q97siwRtbynRpQG9/69ebbtiZ8W3ScOZF/OmhvM4Rg==
   dependencies:
     nanoid "^3.3.11"
+
+"@react-navigation/stack@^7.8.4":
+  version "7.8.4"
+  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-7.8.4.tgz#7402e2ad9e5067732eed554af16e3bfc8b9f4efc"
+  integrity sha512-Sbg4p/tW1oNnXic8eSDTuiLrtLg4eB54WjI+s3HTW1FkZMKxcMVSMDjOm/tc3mwIoZ4wmHkcj2zE2H/W0Vrm9g==
+  dependencies:
+    "@react-navigation/elements" "^2.9.10"
+    color "^4.2.3"
+    use-latest-callback "^0.2.4"
 
 "@sideway/address@^4.1.5":
   version "4.1.5"

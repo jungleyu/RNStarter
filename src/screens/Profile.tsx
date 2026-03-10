@@ -1,7 +1,7 @@
-import { Text, View } from "react-native";
+import { Text, } from "react-native";
 
 export default function Profile() {
-    return <View>
+    return <>
         <Text>Profile screen</Text>
-    </View>
+    </>
 }

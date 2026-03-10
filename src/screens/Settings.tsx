@@ -4,6 +4,7 @@ import { Pressable } from "react-native-gesture-handler";
 import { ThemeName, useTheme } from "../ThemeContext";
 
 const themes = ['light', 'dark'];
+const lauguage = ['简体中文', 'English'];
 
 function capitalized(word: string) {
     return word.charAt(0).toUpperCase()
@@ -12,9 +13,6 @@ function capitalized(word: string) {
 
 export default function Settings() {
     const { colorScheme, setTheme, colors } = useTheme();
-    console.log('colorScheme: ', colorScheme);
-    console.log('colors: ', colors);
-
     const onThemePress = useCallback((newTheme: ThemeName) => {
         if (newTheme === null) {
             newTheme = 'light';
@@ -22,9 +20,9 @@ export default function Settings() {
         setTheme?.(newTheme)
     }, [setTheme])
 
-    return <View style={styles.content}>
+    return <View style={[styles.content, { backgroundColor: colors.background }]}>
         <Text style={styles.sectionTitle}>Theme</Text>
-        <View style={[styles.section, { backgroundColor: colors.background, }]}>
+        <View style={[styles.section, { backgroundColor: colors.card, }]}>
             {
                 themes.map((t) => {
                     const isActive = t === colorScheme;
@@ -47,6 +45,30 @@ export default function Settings() {
             }
         </View>
         <Text style={styles.tips}>Automatic is only supported on operating systems that allow you to control the system-wide color scheme.</Text>
+
+        <Text style={styles.sectionTitle}>Language</Text>
+        <View style={[styles.section, { backgroundColor: colors.card, }]}>
+            {
+                lauguage.map(t => {
+                    const isActive = t === 'English';
+                    return <Pressable
+                        onPress={() => { }}
+                        key={t}
+                        style={[
+                            styles.row,
+                            { borderColor: colors.border },
+                            isActive ? { backgroundColor: colors.primary } : undefined]}>
+                        <Text
+                            style={[
+                                styles.themeText,
+                                { color: colors.text },
+                                isActive ? styles.activeText : undefined]}>
+                            {t}
+                        </Text>
+                    </Pressable>
+                })
+            }
+        </View>
     </View >
 }
 
@@ -63,16 +85,19 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     section: {
-        borderRadius: 4,
-        backgroundColor: '#FFF',
         marginHorizontal: 8,
+        borderWidth: 0.01,
+        borderColor: 'transparent',
+        borderRadius: 8,
+        overflow: 'hidden',
+        elevation: 10,
     },
     row: {
         flexDirection: 'row',
         paddingHorizontal: 12,
         paddingVertical: 16,
-        borderWidth: .5,
-        borderColor: '#f1f1f1'
+        borderBottomWidth: .5,
+        borderBottomColor: '#f1f1f1',
     },
     themeText: {
         fontSize: 14,
@@ -84,10 +109,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 12,
     },
-    active: {
-        backgroundColor: '#fcfcfc'
-    },
     activeText: {
         fontWeight: 700,
+        color: '#FFF'
     }
 })

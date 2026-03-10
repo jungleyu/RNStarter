@@ -1,70 +1,82 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer, NavigatorScreenParams, TypedNavigator, } from "@react-navigation/native";
 import Home from "./screens/Home";
-import { NavigationContainer, TypedNavigator } from "@react-navigation/native";
-import { ComponentProps, PropsWithChildren, } from "react";
+import CreateTab from "./components/CreateTab";
 import Profile from "./screens/Profile";
 import Settings from "./screens/Settings";
 import { useTheme } from "./ThemeContext";
+import { useCallback, } from "react";
+import { createDrawerNavigator, } from "@react-navigation/drawer";
+import DrawerContent from "./DrawerContent";
+import { useWindowDimensions } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Breadcrumb from "./components/Breadcrumb";
 
-const Tab = createBottomTabNavigator();
-const HomeTab = createNativeStackNavigator();
-const ProfileTab = createNativeStackNavigator();
+export type CommonStackParamList = {
+    Settings: undefined
+}
 
-function screenOptions() {
+type TabsParamList = {
+    Home: undefined,
+    CreateTab: undefined,
+    Profile: undefined,
+}
+
+type DrawerParamList = {
+    Main: NavigatorScreenParams<TabsParamList>,
+}
+
+type RootStackParamList = CommonStackParamList & {
+    Drawer: NavigatorScreenParams<TabsParamList>
+}
+
+const RootStack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<TabsParamList>();
+const Drawer = createDrawerNavigator<DrawerParamList>();
+
+function screenOptions(screenWidth: number) {
     return {
-        fullScreenGestureEnabled: true,
         headerShown: false,
+        headerTitleAlign: 'center',
+        gestureEnabled: true,
+        gestureResponseDistance: Math.min(300, screenWidth / 2),
+        gestureVelocityImpact: 0.8
     } as const;
 }
 
 function commonScreen(Stack: TypedNavigator<any>) {
     return <>
-        <Stack.Screen name="Settings" getComponent={() => Settings} options={{
-            headerShown: true,
-            gestureEnabled: true,
-        }} />
+        <Stack.Screen name="Settings" getComponent={() => Settings}
+            options={{
+                headerShown: true,
+                animation: 'slide_from_right',
+            }} />
     </>
 }
 
-function HomeTabNavigator() {
+function AppStack() {
+    const { width } = useWindowDimensions();
     return (
-        <HomeTab.Navigator initialRouteName="Home" screenOptions={screenOptions()}>
-            <HomeTab.Screen name="Home"
-                getComponent={() => Home}
-                options={{
-                    headerShown: true,
-                    headerTitleAlign: 'center',
-                }} />
-            {commonScreen(HomeTab)}
-        </HomeTab.Navigator>
+        <RootStack.Navigator initialRouteName="Drawer" screenOptions={screenOptions(width)}>
+            <RootStack.Screen name="Drawer" getComponent={() => DrawerNavigator} />
+            {
+                commonScreen(RootStack)
+            }
+        </RootStack.Navigator>
     )
 }
 
-function ProfileTabNavigator() {
-    return (
-        <ProfileTab.Navigator initialRouteName="Profile" screenOptions={screenOptions()}>
-            <ProfileTab.Screen
-                name="Profile"
-                getComponent={() => Profile}
-                options={{
-                    headerShown: true,
-                    headerTitleAlign: 'center',
-                    headerTitle: 'Me'
-                }} />
-            {commonScreen(ProfileTab)}
-        </ProfileTab.Navigator>
-    )
-}
-
-function TabsNavigator({ layout }: { layout: ComponentProps<typeof Tab.Navigator>['layout'] }) {
+function TabsNavigator() {
+    const createCreateTabButton = useCallback(() => {
+        return <CreateTab />
+    }, []);
     return (
         <Tab.Navigator
             backBehavior="initialRoute"
-            initialRouteName="HomeTab"
-            layout={layout}
+            initialRouteName="Home"
             screenOptions={{
-                headerShown: false, lazy: true, tabBarLabelStyle: {
+                lazy: true,
+                tabBarLabelStyle: {
                     transform: [{
                         translateY: 10
                     }],
@@ -72,34 +84,61 @@ function TabsNavigator({ layout }: { layout: ComponentProps<typeof Tab.Navigator
                 },
                 tabBarIconStyle: {
                     display: 'none'
-                }
+                },
+                headerTitleAlign: 'center',
             }}>
             <Tab.Screen
-                name="HomeTab"
-                getComponent={() => HomeTabNavigator}
-                options={{
-                    tabBarLabel: 'Home',
-                }} />
+                name="Home"
+                getComponent={() => Home} />
             <Tab.Screen
-                name="ProfileTab"
-                getComponent={() => ProfileTabNavigator}
+                name="CreateTab"
+                getComponent={() => () => null}
                 options={{
-                    tabBarLabel: 'Me',
-                }} />
+                    tabBarButton: createCreateTabButton,
+                }}
+            />
+            <Tab.Screen
+                name="Profile"
+                getComponent={() => Profile}
+                options={{
+                    title: 'Me',
+                    headerLeft: Breadcrumb
+                }}
+            />
         </Tab.Navigator>
     )
 }
 
-function RoutesContainer({ children }: PropsWithChildren<{}>) {
+function DrawerNavigator() {
+    const { width } = useWindowDimensions();
+    const { dark } = useTheme();
+    return (
+        <Drawer.Navigator
+            screenOptions={{
+                ...screenOptions(width),
+                ...{
+                    overlayColor: dark ? 'rgba(255,255,255,.3)' : 'rgba(0,0,0,.2)',
+                    drawerStyle: {
+                        width: Math.min(300, width * .8)
+                    },
+                    swipeEnabled: false,
+                }
+            }}
+            drawerContent={DrawerContent} >
+            <Drawer.Screen name="Main" component={TabsNavigator} />
+        </Drawer.Navigator >
+    )
+}
+
+function NavContainer() {
     const theme = useTheme();
     return (
         <NavigationContainer theme={theme}>
-            {children}
+            <AppStack />
         </NavigationContainer>
     )
 }
 
 export {
-    RoutesContainer,
-    TabsNavigator
+    NavContainer
 }

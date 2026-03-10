@@ -18,6 +18,8 @@ export interface Theme extends NativeTheme {
     }
 }
 
+export type ThemeColors = Theme['colors'];
+
 export interface ThemeProviderProps {
     children?: ReactNode
     theme: ThemeName
