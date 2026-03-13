@@ -120,7 +120,9 @@ function TabsNavigator() {
                 getComponent={() => Profile}
                 options={{
                     title: t`Me`,
-                    headerLeft: Breadcrumb
+                    headerLeft: Breadcrumb,
+                    headerTransparent: true,
+                    headerShown: false
                 }}
             />
         </Tab.Navigator>

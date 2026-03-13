@@ -1052,6 +1052,13 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@codeherence/react-native-header@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@codeherence/react-native-header/-/react-native-header-1.0.0.tgz#00e496e687d92629230ed17f258df5816d906bd6"
+  integrity sha512-SlNLrE5hNGblt0Kjk+vAhonSarfIA/kQJTGxlXUkbG50ye/WPipE1wxCqAehO3siUQnvLj1/AdWYyEzX+iOOIg==
+  dependencies:
+    use-debounce "9.0.3"
+
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
@@ -1725,6 +1732,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@react-native-community/blur@^4.4.1":
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/blur/-/blur-4.4.1.tgz#72cbc0be5a84022c33091683ec6888925ebcca6e"
+  integrity sha512-XBSsRiYxE/MOEln2ayunShfJtWztHwUxLFcSL20o+HNNRnuUDv+GXkF6FmM2zE8ZUfrnhQ/zeTqvnuDPGw6O8A==
+
 "@react-native-community/cli-clean@20.1.0":
   version "20.1.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-clean/-/cli-clean-20.1.0.tgz#c60a8f909c4269cabb785b47e43af4f8cd3fef3b"
@@ -2126,6 +2138,11 @@
     "@react-navigation/elements" "^2.9.10"
     color "^4.2.3"
     use-latest-callback "^0.2.4"
+
+"@shopify/flash-list@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@shopify/flash-list/-/flash-list-2.3.0.tgz#ded45604a38bc0edd49f27e356e1c761bef4018f"
+  integrity sha512-DR7VuN8KJHTYj9zv1/IhpqrMBMQyeeW/DCWCbVQAAkWhHrc6ylIbXOY+qK93CuHABV+dNHXK/3V6p4wCSW/+wA==
 
 "@sideway/address@^4.1.5":
   version "4.1.5"
@@ -6997,6 +7014,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-debounce@9.0.3:
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-9.0.3.tgz#bac660c19ab7b38662e08608fee23c7ad303f532"
+  integrity sha512-FhtlbDtDXILJV7Lix5OZj5yX/fW1tzq+VrvK1fnT2bUrPOGruU9Rw8NCEn+UI9wopfERBEZAOQ8lfeCJPllgnw==
 
 use-latest-callback@^0.2.4:
   version "0.2.6"
